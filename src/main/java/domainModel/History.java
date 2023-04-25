@@ -1,16 +1,20 @@
 package domainModel;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,11 +26,15 @@ public class History {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name="userId")
-	private int userid;
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name="userId", referencedColumnName = "id")
+	@JsonIgnoreProperties(value= {"applications","hibernateLazyInitializer"})
+	private User user;
 	
-	@Column(name="videoId")
-	private int videoid;
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name="videoId", referencedColumnName = "id")
+	@JsonIgnoreProperties(value= {"applications","hibernateLazyInitializer"})
+	private Video video;
 	
 	@Column(name="viewedDate")
 	@CreationTimestamp
@@ -39,10 +47,10 @@ public class History {
 	@CreationTimestamp
 	private Timestamp isLikeddate;
 
-	public History(int userid, int videoid, Timestamp vieweddate, boolean isliked, Timestamp isLikeddate) {
+	public History(User user, Video video, Timestamp vieweddate, boolean isliked, Timestamp isLikeddate) {
 		super();
-		this.userid = userid;
-		this.videoid = videoid;
+		this.user = user;
+		this.video = video;
 		this.vieweddate = vieweddate;
 		this.isliked = isliked;
 		this.isLikeddate = isLikeddate;
@@ -60,20 +68,20 @@ public class History {
 		this.id = id;
 	}
 
-	public int getUserid() {
-		return userid;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserid(int userid) {
-		this.userid = userid;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public int getVideoid() {
-		return videoid;
+	public Video getVideo() {
+		return video;
 	}
 
-	public void setVideoid(int videoid) {
-		this.videoid = videoid;
+	public void setVideo(Video video) {
+		this.video = video;
 	}
 
 	public Timestamp getVieweddate() {
@@ -99,5 +107,24 @@ public class History {
 	public void setIsLikeddate(Timestamp isLikeddate) {
 		this.isLikeddate = isLikeddate;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, isLikeddate, isliked, user, video, vieweddate);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		History other = (History) obj;
+		return id == other.id && Objects.equals(isLikeddate, other.isLikeddate) && isliked == other.isliked
+				&& Objects.equals(user, other.user) && Objects.equals(video, other.video)
+				&& Objects.equals(vieweddate, other.vieweddate);
+	}	
 		
 }

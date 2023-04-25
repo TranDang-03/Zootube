@@ -46,6 +46,6 @@ public class HibernateUtil {
 		
 //		VideoRepo vd =  new VideoRepo();
 		UserRepo us = new UserRepo();
-		System.out.println(us.checkTrungEmail("huynh@gmail.com"));
+		System.out.println(us.checkTrungEmail("dat@gmail.com"));
 	}
 }

@@ -1,5 +1,7 @@
 package domainModel;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -90,6 +92,25 @@ public class User {
 
 	public void setIsactive(boolean isactive) {
 		this.isactive = isactive;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email, id, isactive, isadmin, password, username);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(email, other.email) && id == other.id && isactive == other.isactive
+				&& isadmin == other.isadmin && Objects.equals(password, other.password)
+				&& Objects.equals(username, other.username);
 	}
 		
 }

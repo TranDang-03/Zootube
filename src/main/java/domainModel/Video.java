@@ -1,5 +1,7 @@
 package domainModel;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -116,5 +118,25 @@ public class Video {
 	public void setIsactive(boolean isactive) {
 		this.isactive = isactive;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(description, href, id, isactive, poster, shares, title, viewss);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Video other = (Video) obj;
+		return Objects.equals(description, other.description) && Objects.equals(href, other.href) && id == other.id
+				&& isactive == other.isactive && Objects.equals(poster, other.poster) && shares == other.shares
+				&& Objects.equals(title, other.title) && viewss == other.viewss;
+	}
 		
+	
 }
