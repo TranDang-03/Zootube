@@ -27,7 +27,7 @@ public class HibernateUtil {
 		properties.put(Environment.DRIVER, "com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		properties.put(Environment.URL, "jdbc:sqlserver://localhost:1433;databaseName=ASSIGNMENT4");
 		properties.put(Environment.USER, "sa");
-		properties.put(Environment.PASS, "password");
+		properties.put(Environment.PASS, "dangdzai");
 		properties.put(Environment.SHOW_SQL, "true");
 		conf.setProperties(properties);
 		conf.addAnnotatedClass(History.class);
@@ -46,8 +46,8 @@ public class HibernateUtil {
 		
 //		VideoRepo vd =  new VideoRepo();
 		UserRepo us = new UserRepo();
-//		System.out.println(us.checkTrungEmail("dangthph20994@fpt.edu.vn"));
+//		System.out.println(us.checkTrungEmail("huynh@gmail.com"));
 //		System.out.println(us.findUserByName("john"));
-//		System.out.println(us.checkLogin("dangthph20994@fpt.edu.vn", "D74FF0EE8DA3B9806B18C877DBF29BBDE50B5BD8E4DAD7A3A725000FEB82E8F1"));
+//		System.out.println(us.checkLogin("huynh@gmail.com", "D74FF0EE8DA3B9806B18C877DBF29BBDE50B5BD8E4DAD7A3A725000FEB82E8F1"));
 	}
 }
