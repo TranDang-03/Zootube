@@ -41,7 +41,7 @@ body {
 			<div class="card-header">Đăng nhập</div>
 			<div class="card-body">
 
-				<form action="/Zootube/login" method="post">
+				<form action="/Zootube/user/login" method="post">
 					<div class="form-group">
 						<label for="exampleInputEmail1">Email</label> <input
 							class="form-control" id="exampleInputEmail1" type="email"
@@ -52,7 +52,7 @@ body {
 						<label for="exampleInputPassword1">Password</label>
 						<div class="input-group">
 							<input type="password" class="form-control" id="userPassword"
-								placeholder="Nhập mật khẩu">
+								placeholder="Nhập mật khẩu" name="password">
 							<button class="btn btn-outline-secondary" type="button"
 								id="showPassword">Hiển thị</button>
 						</div>
@@ -64,10 +64,6 @@ body {
 							</label>
 						</div>
 					</div>
-
-					<c:if test="${ not empty errorMessage }">
-						<div class="alert alert-danger">${ errorMessage }</div>
-					</c:if>
 
 					<div class="pt-1 mb-4">
 						<button class="btn btn-primary btn-lg btn-block" type="submit">Đăng
@@ -83,6 +79,13 @@ body {
 			</div>
 		</div>
 	</div>
+
+	<script>
+	<c:if test="${ not empty message }">
+		alert("${message}")
+	</c:if>
+	</script>
+	
 	<!-- Bootstrap core JavaScript-->
 	<script
 		src="<c:url value ='/template/admin/vendor/jquery/jquery.min.js'/>"></script>
@@ -91,11 +94,6 @@ body {
 	<!-- Core plugin JavaScript-->
 	<script
 		src="<c:url value='/template/admin/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
-
-	<script>
-	<c:if test="${not empty message}">alert("${message}")</c:if>
-	</script>
-
 	<script>
     const showPasswordButton = document.getElementById('showPassword');
     const passwordInput = document.getElementById('userPassword');

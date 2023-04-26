@@ -17,7 +17,7 @@ import repository.UserRepo;
 /**
  * Servlet implementation class UserController
  */
-@WebServlet({ "/user/login", "/user/user-register", "/user/user-update", "/user/forgotpassword" })
+@WebServlet({ "/user/login", "/user/user-register", "/user/user-update", "/user/forgotpassword", "/user/home", "/admin/adminHome" })
 
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -39,6 +39,10 @@ public class UserController extends HttpServlet {
 
 		} else if (uri.contains("user-register")) {
 			request.getRequestDispatcher("/views/user/register.jsp").forward(request, response);
+		} else if (uri.contains("home")) {
+			request.getRequestDispatcher("/views/user/home.jsp").forward(request, response);
+		}else if(uri.contains("adminHome")) {
+			request.getRequestDispatcher("/views/admin/homeAdmin.jsp").forward(request, response);
 		} else {
 			request.getRequestDispatcher("/views/user/login.jsp").forward(request, response);
 		}
@@ -54,16 +58,56 @@ public class UserController extends HttpServlet {
 
 		} else if (uri.contains("user-update")) {
 
+		} else if (uri.contains("login")) {
+			this.login(request, response);
 		}
 	}
 
 	protected void login(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		List<User> list = user.findAll();
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
+		HttpSession message = request.getSession();
+//		message.removeAttribute("message");
 
+		if (email.isBlank()) {
+			message.setAttribute("message", "Email không được để trống!");
+			request.getRequestDispatcher("/views/user/login.jsp").forward(request, response);
+		} else if (password.isEmpty()) {
+			message.setAttribute("message", "Mật khẩu không được để trống!");
+			request.getRequestDispatcher("/views/user/login.jsp").forward(request, response);
+		}else if (!password.matches("^[a-zA-Z0-9]+$")) {
+			message.setAttribute("message", "Mật khẩu không hợp lệ!");
+			request.getRequestDispatcher("/views/user/login.jsp").forward(request, response);
+		} else {
+
+			try {
+				MessageDigest md = MessageDigest.getInstance("SHA-256");
+				md.update(password.getBytes());
+				byte[] hashedPasswordBytes = md.digest();
+				String hashedPassword = bytesToHex(hashedPasswordBytes);
+				User us = user.checkLogin(email, hashedPassword);
+				
+				if(us == null) {
+					message.setAttribute("message", "Tài khoản hoặc mật khẩu không chính xác");
+//					response.sendRedirect("/Zootube/user/login");
+					request.getRequestDispatcher("/views/user/login.jsp").forward(request, response);
+				}else {	
+					
+					if(us.isIsadmin() == true) {
+						response.sendRedirect("/Zootube/admin/adminHome");						
+					}else {
+						response.sendRedirect("/Zootube/user/home");
+					}
+					
+				}				
+			}catch (Exception e) {
+				e.printStackTrace();
+				message.setAttribute("message", "Đăng nhập thất bại!!");
+				request.getRequestDispatcher("/views/user/login.jsp").forward(request, response);
+			}
+		}
 	}
 
 	protected void register(HttpServletRequest request, HttpServletResponse response)
@@ -73,7 +117,7 @@ public class UserController extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String confirmPassword = request.getParameter("confirmpassword");
-		
+
 		HttpSession message = request.getSession();
 		message.removeAttribute("message");
 

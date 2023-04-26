@@ -83,4 +83,31 @@ public class UserRepo {
 		return user;
 	}
 
+	public User checkLogin(String email, String password) {
+		User user = null;
+		try {
+			String hql = "SELECT u FROM User u WHERE u.email = :email AND u.password = :password";
+			Query query = this.session.createQuery(hql);
+			query.setParameter("email", email);
+			query.setParameter("password", password);
+			user = query.getSingleResult() == null ? null : (User) query.getSingleResult();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+	
+	public User checkPass(String pass) {
+		User user = null;
+		try {
+			String hql = "SELECT u FROM User u WHERE u.password = :password";
+			Query query = this.session.createQuery(hql);
+			query.setParameter("password", pass);
+			user = query.getSingleResult() == null ? null : (User) query.getSingleResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+	
 }

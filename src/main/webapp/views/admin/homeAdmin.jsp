@@ -7,6 +7,6 @@
 <title>Welcome To Zootube</title>
 </head>
 <body>
-<h1>Home User</h1>
+<h1>Home Admin</h1>
 </body>
 </html>
