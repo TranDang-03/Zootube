@@ -46,13 +46,13 @@ body {
 						<label for="exampleInputEmail1">Email</label> <input
 							class="form-control" id="exampleInputEmail1" type="email"
 							aria-describedby="emailHelp" placeholder="Nhập email"
-							name="email">
+							name="email" value="${email}">
 					</div>
 					<div class="form-group">
 						<label for="exampleInputPassword1">Password</label>
 						<div class="input-group">
 							<input type="password" class="form-control" id="userPassword"
-								placeholder="Nhập mật khẩu" name="password">
+								placeholder="Nhập mật khẩu" name="password" value="${password}">
 							<button class="btn btn-outline-secondary" type="button"
 								id="showPassword">Hiển thị</button>
 						</div>
@@ -60,7 +60,8 @@ body {
 					<div class="form-group">
 						<div class="form-check">
 							<label class="form-check-label"> <input
-								class="form-check-input" type="checkbox"> Nhớ mật khẩu
+								class="form-check-input" type="checkbox" name="check" value="on">
+								Nhớ mật khẩu
 							</label>
 						</div>
 					</div>
@@ -85,7 +86,7 @@ body {
 		alert("${message}")
 	</c:if>
 	</script>
-	
+
 	<!-- Bootstrap core JavaScript-->
 	<script
 		src="<c:url value ='/template/admin/vendor/jquery/jquery.min.js'/>"></script>
