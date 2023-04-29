@@ -28,7 +28,7 @@
 	<nav class="navbar navbar-expand-lg">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#"> <i class="fas fa-film mr-2"></i>
-				Catalog-Z
+				Zootube
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
@@ -65,7 +65,7 @@
 
 	<div class="container-fluid tm-container-content tm-mt-60">
 		<div class="row mb-4">
-			<h2 class="col-6 tm-text-primary">Latest Photos</h2>
+			<h2 class="col-6 tm-text-primary">Video mới nhất</h2>
 			<div class="col-6 d-flex justify-content-end align-items-center">
 				<form action="" class="tm-text-primary">
 					Page <input type="text" value="1" size="1"
@@ -74,21 +74,26 @@
 			</div>
 		</div>
 		<div class="row tm-mb-90 tm-gallery">
-			<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
-				<figure class="effect-ming tm-video-item">
-					<img src="<c:url value='/template/other/img/img-03.jpg'/>"
-						alt="Image" class="img-fluid">
-					<figcaption
-						class="d-flex align-items-center justify-content-center">
-						<h2>Clocks</h2>
-						<a href="photo-detail.html">View more</a>
-					</figcaption>
-				</figure>
-				<div class="d-flex justify-content-between tm-text-gray">
-					<span class="tm-text-gray-light">18 Oct 2020</span> <span>9,906
-						views</span>
+			<c:forEach items="videos" var="video" varStatus="loop">
+
+				<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+					<figure class="effect-ming tm-video-item">
+						<img src="<c:url value='/template/other/img/img-03.jpg'/>"
+							alt="Image" class="img-fluid">
+						<figcaption
+							class="d-flex align-items-center justify-content-center">
+							<h2>${video.title}</h2>
+							<a href="/Zootube/video/detail?id=${video.id}"></a>
+						</figcaption>
+					</figure>
+					<div class="d-flex justify-content-between tm-text-gray">
+						<span class="tm-text-gray-light">${video.shares} share</span> <span>${video.viewss}
+							views</span>
+					</div>
 				</div>
-			</div>
+
+			</c:forEach>
+
 		</div>
 	</div>
 	<!-- row -->
@@ -114,10 +119,9 @@
 		<div class="container-fluid tm-container-small">
 			<div class="row">
 				<div class="col-lg-6 col-md-12 col-12 px-5 mb-5">
-					<h3 class="tm-text-primary mb-4 tm-footer-title">About
-						Catalog-Z</h3>
+					<h3 class="tm-text-primary mb-4 tm-footer-title">About Zootube</h3>
 					<p>
-						Catalog-Z is free <a rel="sponsored"
+						Zootube is free <a rel="sponsored"
 							href="https://v5.getbootstrap.com/">Bootstrap 5</a> Alpha 2 HTML
 						Template for video and photo websites. You can freely use this
 						TemplateMo layout for a front-end integration with any kind of CMS
@@ -151,10 +155,10 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-8 col-md-7 col-12 px-5 mb-3">Copyright 2020
-					Catalog-Z Company. All rights reserved.</div>
+					Zootube Company. All rights reserved.</div>
 				<div class="col-lg-4 col-md-5 col-12 px-5 text-right">
 					Designed by <a href="https://templatemo.com" class="tm-text-gray"
-						rel="sponsored" target="_parent">TemplateMo</a>
+						rel="sponsored" target="_parent">Zootube Team</a>
 				</div>
 			</div>
 		</div>

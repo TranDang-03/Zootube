@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import domainModel.User;
+import domainModel.Video;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import repository.UserRepo;
+import repository.VideoRepo;
 
 /**
  * Servlet implementation class UserController
@@ -53,6 +55,8 @@ public class UserController extends HttpServlet {
 		} else if (uri.contains("user-register")) {
 			request.getRequestDispatcher("/views/user/register.jsp").forward(request, response);
 		} else if (uri.contains("home")) {
+			List<Video> video = new VideoRepo().findAll();
+			request.setAttribute("videos", video);
 			request.getRequestDispatcher("/views/user/home.jsp").forward(request, response);
 		} else if (uri.contains("adminHome")) {
 			request.getRequestDispatcher("/views/admin/homeAdmin.jsp").forward(request, response);
