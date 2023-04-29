@@ -119,6 +119,7 @@ public class Video {
 		this.isactive = isactive;
 	}
 
+	//hash code
 	@Override
 	public int hashCode() {
 		return Objects.hash(description, href, id, isactive, poster, shares, title, viewss);

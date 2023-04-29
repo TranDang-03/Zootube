@@ -36,6 +36,7 @@ public class UserController extends HttpServlet {
 			throws ServletException, IOException {
 		String uri = request.getRequestURI();
 		if (uri.contains("login")) {
+			// lay cookie 
 			Cookie[] cook = request.getCookies();
 			if(cook != null) {
 				for (Cookie cookie : cook) {
@@ -188,11 +189,13 @@ public class UserController extends HttpServlet {
 				request.getRequestDispatcher("/views/user/register.jsp").forward(request, response);
 			} else {
 				try {
+					// bam mat khau bang kieu SHA-256				
 					MessageDigest md = MessageDigest.getInstance("SHA-256");
 					md.update(password.getBytes());
 					byte[] hashedPasswordBytes = md.digest();
 					String hashedPassword = bytesToHex(hashedPasswordBytes);
 					User us = new User(username, hashedPassword, email, false, true);
+					// luu du lieu nguoi dung vao sopce session					
 					user.insertUser(us);
 					message.setAttribute("message", "Đăng ký thành công!!");
 					response.sendRedirect("/Zootube/user/login");
@@ -205,6 +208,7 @@ public class UserController extends HttpServlet {
 		}
 	}
 
+	// chuyen doi mang byte sang hex
 	public String bytesToHex(byte[] bytes) {
 		char[] hexArray = "0123456789ABCDEF".toCharArray();
 		char[] hexChars = new char[bytes.length * 2];
