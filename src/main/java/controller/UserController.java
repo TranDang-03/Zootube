@@ -114,7 +114,6 @@ public class UserController extends HttpServlet {
 
 						Cookie mail = new Cookie("Email", email);
 						Cookie pass = new Cookie("Pass", password);
-						
 						if (check != null) {
 							mail.setMaxAge(20 * 60);
 							pass.setMaxAge(20 * 60);
